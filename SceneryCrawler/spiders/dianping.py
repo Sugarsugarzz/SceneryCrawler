@@ -34,7 +34,7 @@ class DianpingSpider(scrapy.Spider):
     #     """ 页码解析 """
     #     page_num = response.xpath('//div[@class="page"]/a[last()-1]/text()').get()
     #     self.logger.info("{} Total page number is : {}".format(response.meta['category'], page_num))
-    #     for i in range(1, int(page_num)):
+    #     for i in range(1, int(page_num) + 1):
     #         url = 'http://www.dianping.com/beijing/ch35/g33831o3p' + str(i)
     #         yield scrapy.Request(url=url, callback=self.item_parse, meta={'category': response.meta['category']})
     #
@@ -67,16 +67,12 @@ class DianpingSpider(scrapy.Spider):
         """ 用户评论页码解析 """
         page_num = response.xpath('//div[@class="reviews-pages"]/a[last()-1]/text()').get()
         self.logger.info("Total page number is : {}".format(page_num))
-        # for i in range(1, int(page_num)):
-        for i in range(1, 3):
+        for i in range(1, int(page_num) + 1):
+        # for i in range(1, 3):
             url = response.url + '/p' + str(i)
-            print(url)
             yield scrapy.Request(url=url, callback=self.review_parse)
 
     def review_parse(self, response):
-        self.logger.info("请求头")
-        self.logger.info(response.request.headers)
-        self.logger.info(response.request.headers.getlist('Cookie'))
         """ 用户评论信息采集 """
         # 解密
         for i in replace_map:
@@ -87,7 +83,6 @@ class DianpingSpider(scrapy.Spider):
             item = ReviewItem()
             item['name'] = li.xpath('.//div[@class="dper-info"]/a/text()').get().strip()
             div = li.xpath('.//div[@class="review-words Hide"]')
-            print(div)
             if div is None or div == []:
                 div = li.xpath('.//div[@class="review-words"]')
             item['content'] = div.xpath('string(.)').get().replace('收起评价', '').replace('\n\n', '\n').strip()
