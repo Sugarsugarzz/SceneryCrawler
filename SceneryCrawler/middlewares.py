@@ -10,3 +10,12 @@ class RandomUserAgentMiddleware(object):
         request.headers['User-Agent'] = ua.random
 
 
+class ProxyMiddleware(object):
+    """
+    代理 IP
+    """
+    def process_request(self, request, spider):
+        ip = ''
+        request.meta['proxy'] = ip
+
+

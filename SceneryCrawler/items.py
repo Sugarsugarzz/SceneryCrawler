@@ -7,14 +7,18 @@ class SceneryItem(Item):
     """
     name = Field()
     intro = Field()
-    score = Field()
+    review_count = Field()
+    per_cost = Field()
+    total_score = Field()
+    serve_score = Field()
+    env_score = Field()
     category = Field()
     location = Field()
     address = Field()
     pic = Field()
-    review_count = Field()
     source = Field()
     url = Field()
+    ref_url = Field()
 
 
 class ReviewItem(Item):
@@ -23,8 +27,23 @@ class ReviewItem(Item):
     """
     name = Field()
     content = Field()
+    publish_time = Field()
     pics = Field()
     scenery_name = Field()
     source = Field()
     url = Field()
+    home_url = Field()
+
+
+class CheckInItem(Item):
+    """
+    用户打卡数据
+    """
+    member_id = Field()
+    name = Field()
+    shop_name = Field()
+    shop_address = Field()
+    check_in_time = Field()
+    source = Field()
+
 

@@ -1,5 +1,5 @@
 import pymysql
-from SceneryCrawler.items import SceneryItem, ReviewItem
+from SceneryCrawler.items import SceneryItem, ReviewItem, CheckInItem
 import logging
 
 
@@ -15,22 +15,29 @@ class MySQLPipeline:
     def process_item(self, item, spider):
         if isinstance(item, SceneryItem):
             insert_sql = """
-                        insert into sceneries(`name`, intro, score, category, location, address, pic, review_count, `source`, url)
-                        values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
-                    """ % (item.get('name', None), item.get('intro', None), item.get('score', None), item.get('category', None),
-                           item.get('location', None), item.get('address', None), item.get('pic', None), item.get('review_count', None),
-                           item.get('source', None), item.get('url', None))
+                        insert into sceneries(`name`, intro, review_count, per_cost, total_score, serve_score, env_score, category, location, address, pic, `source`, url, ref_url)
+                        values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                    """ % (item.get('name', ''), item.get('intro', ''), item.get('review_count', ''), item.get('per_cost', ''), item.get('total_score', ''),
+                           item.get('serve_score', ''), item.get('env_score', ''), item.get('category', ''), item.get('location', ''), item.get('address', ''), item.get('pic', ''), item.get('source', ''), item.get('url', ''), item.get('ref_url', ''))
+
         elif isinstance(item, ReviewItem):
             insert_sql = """
-                        insert into reviews(`name`, content, pics, scenery_name, `source`, url)
+                        insert into reviews(`name`, content, publish_time, pics, scenery_name, `source`, url, home_url)
+                        values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
+                    """ % (item.get('name', ''), item.get('content', ''), item.get('publish_time', ''), item.get('pics', ''), item.get('scenery_name', ''),
+                           item.get('source', ''), item.get('url', ''), item.get('home_url', ''))
+
+        elif isinstance(item, CheckInItem):
+            insert_sql = """
+                        insert into checkins(member_id, `name`, shop_name, shop_address, check_in_time, `source`)
                         values ("%s", "%s", "%s", "%s", "%s", "%s")
-                    """ % (item.get('name', None), item.get('content', None), item.get('pics', None), item.get('scenery_name', None),
-                           item.get('source', None), item.get('url', None))
+                    """ % (item.get('member_id', ''), item.get('name', ''), item.get('shop_name', ''), item.get('shop_address', ''), item.get('check_in_time', ''),
+                           item.get('source', ''))
 
         try:
             self.cursor.execute(insert_sql)
             self.conn.commit()
-            self.logger.info(item.get('name', None) + '  插入成功！')
+            self.logger.info(item.get('name', '') + '  插入成功！')
         except Exception as e:
             self.conn.rollback()
             self.logger.error(e)
