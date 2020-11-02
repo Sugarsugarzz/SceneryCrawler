@@ -20,11 +20,11 @@ def create_dict(filepath):
     return dic
 
 
-""" 构造映射词典，存到本地 """
 def store_dict():
-    number_dict = create_dict('fonts/74d35eb5.woff')
-    chinese_dict = create_dict('fonts/ecfbd556.woff')
-    chinese_other_dict = create_dict('fonts/f24322a8.woff')
+    """ 构造映射词典，存到本地 """
+    number_dict = create_dict('fonts/65c2143f.woff')
+    chinese_dict = create_dict('fonts/92bffe5d.woff')
+    chinese_other_dict = create_dict('fonts/adcaa8ee.woff')
     with open('decrypt_map.py', 'w', encoding='utf-8') as f:
         dict_str = json.dumps(number_dict, ensure_ascii=False, indent=4)
         f.write('number_map = ')
@@ -41,20 +41,42 @@ def store_dict():
 
 def get_number(content):
     """ 解析数字类字符串 """
-    return re.sub('[\ue000-\uffff]', lambda x: number_map.get(x.group(0), x.group(0)), content)
+    if content is None:
+        return ''
+    return re.sub('[\u0000-\uffff]', lambda x: number_map.get(x.group(0), x.group(0)), content)
 
 
 def get_chinese(content):
     """ 解析中文类字符串 """
-    return re.sub('[\ue000-\uffff]', lambda x: chinese_map.get(x.group(0), x.group(0)), content)
+    if content is None:
+        return ''
+    return re.sub('[\u0000-\uffff]', lambda x: chinese_map.get(x.group(0), x.group(0)), content)
 
 
 def get_other_chinese(content):
     """ 解析中文2类字符串 """
-    return re.sub('[\ue000-\uffff]', lambda x: chinese_other_map.get(x.group(0), x.group(0)), content)
+    if content is None:
+        return ''
+    return re.sub('[\u0000-\uffff]', lambda x: chinese_other_map.get(x.group(0), x.group(0)), content)
 
 
 if __name__ == '__main__':
     # store_dict()
-    s = '\ue66b.\ue331'
-    print(get_number(s))
+    s = """
+        {'address': '\ued09\ue470\ue22c\uedd7，邻积\ueac7潭\ue6b2\ue641\uf2b3',
+         'category': '自然风光',    
+         'env_score': '\ue046.\uebf0',
+         'location': '\ue065\uf738/\ue8bc刹\uf738',
+         'name': '西海',
+         'per_cost': '￥\uee4f\uf4dd',
+         'pic': 'http://p0.meituan.net/travel/6ba0496c901075ace910387b2ff600f5382364.png%40340w_255h_1e_1c_1l%7Cwatermark%3D0',
+         'review_count': '11\ue046\uf4dd',
+         'serve_score': '别.\uebf0',
+         'source': '大众点评',
+         'total_score': '别.\uebf0',
+         'url': 'http://www.dianping.com/shop/H8dMZiNPaIjlWkR4'}
+    """
+    # s = get_number(s)
+    s = get_chinese(s)
+    # s = get_other_chinese(s)
+    print(s)
