@@ -12,7 +12,7 @@ class DianpingSpider(scrapy.Spider):
         """ 获取父类别 """
         categories = response.xpath('//div[@id="classfy"]/a')
         # for a in categories:
-        for a in categories[:1]:  # 测试
+        for a in categories[7:]:  # 测试
             category = a.xpath('span/text()').get()
             url = a.xpath('@href').get()
             self.logger.info("一级：" + category + " - " + url)
@@ -24,7 +24,7 @@ class DianpingSpider(scrapy.Spider):
         sub_categories = response.xpath('//div[@id="classfy-sub"]/a')
         if sub_categories:
             # for a in sub_categories[1:]:
-            for a in sub_categories[1:2]:  # 测试
+            for a in sub_categories[:1]:  # 测试
                 category = a.xpath('span/text()').get()
                 url = a.xpath('@href').get()
                 self.logger.info("二级：" + category + " - " + url)
@@ -41,8 +41,8 @@ class DianpingSpider(scrapy.Spider):
             page_num = 1
         print("{} Total page number is : {}".format(response.meta['category'], page_num))
         self.logger.info("{} Total page number is : {}".format(response.meta['category'], page_num))
-        # for i in range(1, int(page_num) + 1):
-        for i in range(1, 2):  # 测试
+        for i in range(1, int(page_num) + 1):
+        # for i in range(1, 2):  # 测试
             url = response.url + "p" + str(i)
             yield scrapy.Request(url=url, callback=self.item_parse, meta={'category': response.meta['category']})
 
@@ -54,20 +54,20 @@ class DianpingSpider(scrapy.Spider):
             item = SceneryItem()
             item['name'] = li.xpath('.//div[@class="txt"]/div[@class="tit"]//h4/text()').get().strip()
             b = li.xpath('.//div[@class="comment"]/a[@class="review-num"]/b')
-            item['review_count'] = get_chinese(b.xpath('string(.)').get())
+            item['review_count'] = get_number(b.xpath('string(.)').get())
             b = li.xpath('.//div[@class="comment"]/a[@class="mean-price"]/b')
-            item['per_cost'] = get_chinese(b.xpath('string(.)').get()).replace('￥', '')
+            item['per_cost'] = get_number(b.xpath('string(.)').get()).replace('￥', '')
             b = li.xpath('.//span[@class="comment-list"]/span[1]/b')
-            item['total_score'] = get_chinese(b.xpath('string(.)').get())
+            item['total_score'] = get_number(b.xpath('string(.)').get())
             b = li.xpath('.//span[@class="comment-list"]/span[2]/b')
-            item['env_score'] = get_chinese(b.xpath('string(.)').get())
+            item['env_score'] = get_number(b.xpath('string(.)').get())
             b = li.xpath('.//span[@class="comment-list"]/span[3]/b')
-            item['serve_score'] = get_chinese(b.xpath('string(.)').get())
+            item['serve_score'] = get_number(b.xpath('string(.)').get())
             item['category'] = response.meta['category']
             b = li.xpath('.//div[@class="tag-addr"]/a[2]/span')
-            item['location'] = get_number(b.xpath('string(.)').get())
+            item['location'] = get_chinese(b.xpath('string(.)').get())
             b = li.xpath('.//span[@class="addr"]')
-            item['address'] = get_other_chinese(b.xpath('string(.)').get())
+            item['address'] = get_chinese(b.xpath('string(.)').get())
             item['pic'] = li.xpath('.//div[@class="pic"]//img/@src').get()
             item['source'] = '大众点评'
             item['url'] = li.xpath('.//div[@class="tit"]//a/@href').get()

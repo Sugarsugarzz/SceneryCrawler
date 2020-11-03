@@ -2,7 +2,6 @@ import scrapy
 import pymysql
 import pandas as pd
 from SceneryCrawler.items import SceneryItem, ReviewItem
-from SceneryCrawler.utils.decrypt import get_number, get_chinese, get_other_chinese
 from SceneryCrawler.utils.svg_map import replace_map
 
 
@@ -13,31 +12,31 @@ class DianpingSpider(scrapy.Spider):
     def start_requests(self):
         """ 从数据库获取景点URL，补充URL获取所有评论页面 """
         db = pymysql.connect(host='localhost', user='root', password='123456', port=3306, db='scenery')
-        sql = "SELECT `name`, url FROM sceneries"
+        sql = "SELECT id, `name`, url FROM sceneries"
         df = pd.read_sql(sql=sql, con=db)
         for index, row in df.iterrows():
-            if index == 500:  # 测试
+            if 0 <= index < 1:
                 url = row['url'] + '/review_all'
-                self.logger.info("Process {} ：{}".format(row['name'], row['url']))
-                print(row['name'] + ' - ' + row['url'])
-                yield scrapy.Request(url=url, callback=self.page_parse, meta={'scenery_name': row['name']})
+                self.logger.info("Process {}  {} ：{}".format(index, row['name'], row['url']))
+                print("Process {}  {} ：{}".format(index, row['name'], row['url']))
+                yield scrapy.Request(url=url, callback=self.page_parse, meta={'scenery_name': row['name'], 'index': index})
 
     def page_parse(self, response):
         """ 用户评论页码解析 """
         page_num = response.xpath('//div[@class="reviews-pages"]/a[last()-1]/text()').get()
         if page_num is None:
             page_num = 1
-        self.logger.info("{} Total page number is : {}".format(response.meta['scenery_name'], page_num))
-        print("{} Total page number is : {}".format(response.meta['scenery_name'], page_num))
+        self.logger.info("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
+        print("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
         # for i in range(1, int(page_num) + 1):
         for i in range(2, 3):  # 测试
             url = response.url + '/p' + str(i)
-            yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name']})
+            yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
 
     def review_parse(self, response):
         """ 用户评论信息采集 """
-        print("{} Processing page : {}".format(response.meta['scenery_name'], response.url))
-        self.logger.info("{} Processing page : {}".format(response.meta['scenery_name'], response.url))
+        print("{}  {} Processing page : {}".format(response.meta['index'], response.meta['scenery_name'], response.url))
+        self.logger.info("{}  {} Processing page : {}".format(response.meta['index'], response.meta['scenery_name'], response.url))
         # 解密
         for i in replace_map:
             response = response.replace(body=response.text.replace(i['code'], i['word']))

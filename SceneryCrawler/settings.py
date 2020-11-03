@@ -10,7 +10,7 @@ NEWSPIDER_MODULE = 'SceneryCrawler.spiders'
 LOG_LEVEL = 'DEBUG'
 to_day = datetime.datetime.now()
 log_file_path = '/Users/sugar/Documents/Projects/PythonProjects/SceneryCrawler/SceneryCrawler/log/' + \
-                'scrapy_{}_{}_{}.log'.format(to_day.year, to_day.month, to_day.day)
+                'scrapy_dianping_review_{}_{}_{}.log'.format(to_day.year, to_day.month, to_day.day)
 LOG_FILE = log_file_path
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -25,7 +25,7 @@ HTTPERROR_ALLOWED_CODES = [403, 400]
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = eval("%.1f" % (random.random() * 10 + 5))
+DOWNLOAD_DELAY = eval("%.1f" % (random.random() * 10+ 5))
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -42,7 +42,7 @@ DEFAULT_REQUEST_HEADERS = {
   'Accept-Encoding': 'gzip, deflate',
   'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
   'Connection': 'keep-alive',
-  'Cookie': '_lxsdk_cuid=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _lxsdk=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _hc.v=a497ceb2-53d2-fcc1-b83f-acb8e5671083.1603672532; s_ViewType=10; ctu=5fecefa74ea59558a4d9dddd24fb293b8f9710fb8079edab2e1f02e28d5987bd; aburl=1; cityid=2; baidusearch_ab=citybranch%3AA%3A1%7Cindex%3AA%3A1; switchcityflashtoast=1; source=m_browser_test_33; seouser_ab=shop%3AA%3A1%7Cindex%3AA%3A1; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1603678545,1603716657,1603884877,1603885103; fspop=test; dper=de0737b36330e4ebe65a08979b56c834b9020731acf79d6aae685c0bbefeca5bc4205bf71d4f5a33c35d70527104c462df39847a925a9ee6747233fae317b45843f66dee209f0d3adc800e3649c5ea26a29bead0cc8dcd8a5dc28d09f2d61c40; ll=7fd06e815b796be3df069dec7836c3df; ua=13001230577; cy=2; cye=beijing; dplet=d287b71f69703f1693ceeabcf334ea07; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604304517; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; _lxsdk_s=175877db0d2-41d-944-e0e%7C%7C1359',
+  'Cookie': '_lxsdk_cuid=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _lxsdk=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _hc.v=a497ceb2-53d2-fcc1-b83f-acb8e5671083.1603672532; s_ViewType=10; ctu=5fecefa74ea59558a4d9dddd24fb293b8f9710fb8079edab2e1f02e28d5987bd; aburl=1; cityid=2; baidusearch_ab=citybranch%3AA%3A1%7Cindex%3AA%3A1; switchcityflashtoast=1; source=m_browser_test_33; seouser_ab=shop%3AA%3A1%7Cindex%3AA%3A1; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1603678545,1603716657,1603884877,1603885103; fspop=test; cy=2; cye=beijing; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; _dp.ac.v=74219ac2-4dbb-477e-9231-0fd74de26434; lgtoken=0a686c1fc-1097-4bb4-911b-45917ab65c23; dper=c2f02f2236015a9f5620477a7890ac95d5ec1fde137b9b0af934635ac8b3a2492632b3fad3f6a5bc636373667c3fc3915a1dcdee13b8402686301bd59e8fb4a4ca8036f3060b03c34fc1edfcd1e6680920e006597ed9ceb4baabe139ebc68b30; ll=7fd06e815b796be3df069dec7836c3df; ua=dpuser_0138273573; uamo=13011243036; dplet=608daa9f6f6e67c15888e56190d95a0b; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604377486; _lxsdk_s=1758c36cffa-f2c-c27-4d0%7C%7C757',
   'Host': 'www.dianping.com',
   'Upgrade-Insecure-Requests': 1,
   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
@@ -57,7 +57,7 @@ SPIDER_MIDDLEWARES = {
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    # 'SceneryCrawler.middlewares.ProxyMiddleware': 543,
+    'SceneryCrawler.middlewares.ProxyMiddleware': 1,
    # 'SceneryCrawler.middlewares.RandomUserAgentMiddleware': 543,
    # 'scrapy.downloadmiddlewares.useragent.UserAgentMiddle': None
 }
