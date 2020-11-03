@@ -22,9 +22,9 @@ def create_dict(filepath):
 
 def store_dict():
     """ 构造映射词典，存到本地 """
-    number_dict = create_dict('fonts/65c2143f.woff')
-    chinese_dict = create_dict('fonts/92bffe5d.woff')
-    chinese_other_dict = create_dict('fonts/adcaa8ee.woff')
+    number_dict = create_dict('fonts/4862c24c.woff')
+    chinese_dict = create_dict('fonts/1410c1c2.woff')
+    chinese_other_dict = create_dict('fonts/c635360e.woff')
     with open('decrypt_map.py', 'w', encoding='utf-8') as f:
         dict_str = json.dumps(number_dict, ensure_ascii=False, indent=4)
         f.write('number_map = ')
@@ -63,18 +63,19 @@ def get_other_chinese(content):
 if __name__ == '__main__':
     # store_dict()
     s = """
-        {'address': '\ued09\ue470\ue22c\uedd7，邻积\ueac7潭\ue6b2\ue641\uf2b3',
-         'category': '自然风光',    
-         'env_score': '\ue046.\uebf0',
-         'location': '\ue065\uf738/\ue8bc刹\uf738',
-         'name': '西海',
-         'per_cost': '￥\uee4f\uf4dd',
-         'pic': 'http://p0.meituan.net/travel/6ba0496c901075ace910387b2ff600f5382364.png%40340w_255h_1e_1c_1l%7Cwatermark%3D0',
-         'review_count': '11\ue046\uf4dd',
-         'serve_score': '别.\uebf0',
+        {'address': '\uf8d2\ueb5b\ue0f5\ueb0b\ue2cf\ued42',
+         'category': '自然风光',
+         'env_score': '\ue24f.\ueb35',
+         'location': '延没\ue14e\ue393\uf5ff',
+         'name': '海坨山',
+         'per_cost': '赞\uea82\ue207',
+         'pic': 'http://p0.meituan.net/travel/324d2c5dbf63907d90c9d137aae8f20e250569.png%40340w_255h_1e_1c_1l%7Cwatermark%3D0',
+         'ref_url': 'http://www.dianping.com/beijing/ch35/g32745o3p1',
+         'review_count': '\uea82\uf54d\ue329',
+         'serve_score': '\ue24f.\ueb35',
          'source': '大众点评',
-         'total_score': '别.\uebf0',
-         'url': 'http://www.dianping.com/shop/H8dMZiNPaIjlWkR4'}
+         'total_score': '\ue329.\uea82',
+         'url': 'http://www.dianping.com/shop/H1hc0FTftqecwh2j'}
     """
     # s = get_number(s)
     s = get_chinese(s)
