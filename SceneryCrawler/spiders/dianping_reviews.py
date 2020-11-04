@@ -15,7 +15,7 @@ class DianpingSpider(scrapy.Spider):
         sql = "SELECT id, `name`, url FROM sceneries"
         df = pd.read_sql(sql=sql, con=db)
         for index, row in df.iterrows():
-            if 0 <= index < 1:
+            if 1 <= index:
                 url = row['url'] + '/review_all'
                 self.logger.info("Process {}  {} ：{}".format(index, row['name'], row['url']))
                 print("Process {}  {} ：{}".format(index, row['name'], row['url']))
@@ -28,8 +28,8 @@ class DianpingSpider(scrapy.Spider):
             page_num = 1
         self.logger.info("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
         print("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
-        # for i in range(1, int(page_num) + 1):
-        for i in range(2, 3):  # 测试
+        for i in range(1, int(page_num) + 1):
+        # for i in range(2, 3):  # 测试
             url = response.url + '/p' + str(i)
             yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
 
