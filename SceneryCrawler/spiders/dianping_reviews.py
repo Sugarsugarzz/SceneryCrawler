@@ -28,7 +28,7 @@ class DianpingSpider(scrapy.Spider):
 
     def page_parse(self, response):
         if not self.is_verify(response):  # 检测是否需要验证
-            print(response.request.meta["redirect_urls"][0])
+            print('请输入验证码！ - ' + str(response.request.meta["redirect_urls"][0]))
             yield response.request.replace(url=response.request.meta["redirect_urls"][0], dont_filter=True)  # 出现需要验证则再次提交
             return
         """ 用户评论页码解析 """
@@ -39,9 +39,9 @@ class DianpingSpider(scrapy.Spider):
         print("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
         # for i in range(2, 3):  # 测试
         for i in range(1, int(page_num) + 1):
-            # if i < 18:
-            url = response.url + '/p' + str(i)
-            yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
+            if i < 1264:
+                url = response.url + '/p' + str(i)
+                yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
 
     def review_parse(self, response):
         """ 用户评论信息采集 """

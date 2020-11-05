@@ -30,7 +30,7 @@ DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
-
+DOWNLOAD_TIMEOUT = 15
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False  # 一个坑，使用settings文件中的cookie，需要解除注释，设置为False，否则注释情况下默认是True
 
@@ -53,7 +53,7 @@ DEFAULT_REQUEST_HEADERS = {
   'Accept-Encoding': 'gzip, deflate',
   'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
   'Connection': 'keep-alive',
-  'Cookie': '_lxsdk_cuid=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _lxsdk=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _hc.v=a497ceb2-53d2-fcc1-b83f-acb8e5671083.1603672532; s_ViewType=10; ctu=5fecefa74ea59558a4d9dddd24fb293b8f9710fb8079edab2e1f02e28d5987bd; aburl=1; cityid=2; switchcityflashtoast=1; source=m_browser_test_33; seouser_ab=shop%3AA%3A1%7Cindex%3AA%3A1; fspop=test; cy=2; cye=beijing; _dp.ac.v=74219ac2-4dbb-477e-9231-0fd74de26434; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1603884877,1603885103,1604467986,1604477568; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; lgtoken=0fa96105c-80be-40ef-b159-4112c6b92ecc; dplet=8a2a7c6f48aca598fda14b1624bd6d06; dper=de0737b36330e4ebe65a08979b56c8340a27e33ede41910f98deb520ea8c01e29f19e7837b3aef6fff7cf7fdd35f6ee5b37d24418c50bd25c1125b94a3582ce84601dbecaf3e84ca16ceab38cfd5518d45068bcc729fe130c81dda9181dd2fdd; ll=7fd06e815b796be3df069dec7836c3df; ua=13001230577; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604492155; _lxsdk_s=175932bc330-b01-60d-c51%7C%7C192',
+  'Cookie': '_lxsdk_cuid=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _lxsdk=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _hc.v=a497ceb2-53d2-fcc1-b83f-acb8e5671083.1603672532; s_ViewType=10; ctu=5fecefa74ea59558a4d9dddd24fb293b8f9710fb8079edab2e1f02e28d5987bd; aburl=1; cityid=2; switchcityflashtoast=1; source=m_browser_test_33; seouser_ab=shop%3AA%3A1%7Cindex%3AA%3A1; fspop=test; cy=2; cye=beijing; _dp.ac.v=74219ac2-4dbb-477e-9231-0fd74de26434; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1603884877,1603885103,1604467986,1604477568; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; ll=7fd06e815b796be3df069dec7836c3df; ua=13001230577; dper=de0737b36330e4ebe65a08979b56c834b9602c8862530f8446719d728944e7dd9f07ae085b3660fa7c130ceed6577343874ada06506c4c7496c61a3fbfa5c9e9c18fc58faf3cd79e22001e0ac24cdd5aadef08b3ed2310b6446c72833203b9d2; dplet=e90e69973778b14eeb4bb744283f8d93; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604539840; _lxsdk_s=17596045176-5e4-9a1-ad8%7C%7C222',
   # 'Cookie': random.choice(cookies),
   'Host': 'www.dianping.com',
   'Upgrade-Insecure-Requests': 1,

@@ -35,6 +35,10 @@ class ProxyMiddleware(object):
         auth = "sign=" + sign + "&" + "orderno=" + self.orderno + "&" + "timestamp=" + timestamp
         request.headers['Proxy-Authorization'] = auth
 
+    def process_exception(self, request, exception, spider):
+        if isinstance(exception, TimeoutError):
+            return request
+
     """
     策略二：API获取优质代理IP，用前判断是否可用，可用则用，不可用则删除，被封也删除，用完用API接着获取
     """
