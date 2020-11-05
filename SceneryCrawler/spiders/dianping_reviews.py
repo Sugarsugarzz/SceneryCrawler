@@ -3,6 +3,7 @@ import pymysql
 import pandas as pd
 from SceneryCrawler.items import SceneryItem, ReviewItem
 from SceneryCrawler.utils.svg_map import replace_map
+from SceneryCrawler.utils.filter_emoji import filter_emoji
 
 
 class DianpingSpider(scrapy.Spider):
@@ -58,7 +59,8 @@ class DianpingSpider(scrapy.Spider):
             div = li.xpath('.//div[@class="review-words Hide"]')
             if div is None or div == []:
                 div = li.xpath('.//div[@class="review-words"]')
-            item['content'] = div.xpath('string(.)').get().replace('收起评价', '').replace('\n\n', '\n').strip()
+            content = div.xpath('string(.)').get().replace('收起评价', '').replace('\n\n', '\n').strip()
+            item['content'] = filter_emoji(content)
             item['publish_time'] = li.xpath('.//div[@class="misc-info clearfix"]/span[@class="time"]/text()').get().strip()
             item['pics'] = []
             for pic_li in li.xpath('.//div[@class="review-pictures"]/ul/li'):
