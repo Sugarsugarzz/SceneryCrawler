@@ -11,8 +11,9 @@ class RandomUserAgentMiddleware(object):
     随机 User-Agent
     """
     def process_request(self, request, spider):
-        location = 'SceneryCrawler/utils/fake_useragent.json'
-        ua = UserAgent(path=location)
+        # location = 'SceneryCrawler/utils/fake_useragent.json'
+        # ua = UserAgent(path=location)
+        ua = UserAgent()
         request.headers['User-Agent'] = ua.random
 
 
