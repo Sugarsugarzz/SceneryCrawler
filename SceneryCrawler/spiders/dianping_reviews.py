@@ -1,7 +1,7 @@
 import scrapy
 import pymysql
 import pandas as pd
-from SceneryCrawler.items import SceneryItem, ReviewItem
+from SceneryCrawler.items import ReviewItem
 from SceneryCrawler.utils.svg_map import replace_map
 from SceneryCrawler.utils.filter_emoji import filter_emoji
 
@@ -10,28 +10,24 @@ class DianpingSpider(scrapy.Spider):
     """ 大众点评 - 景点网友评论数据采集 """
     name = 'dianping-r'
 
-    @staticmethod
-    def is_verify(response):
-        """ 判断是否弹出验证 """
-        return False if response.url.find("verify.meituan.com") >= 0 else True
-
     def start_requests(self):
         """ 从数据库获取景点URL，补充URL获取所有评论页面 """
         db = pymysql.connect(host='localhost', user='root', password='123456', port=3306, db='scenery')
         sql = "SELECT id, `name`, url FROM sceneries"
         df = pd.read_sql(sql=sql, con=db)
         for index, row in df.iterrows():
-            if index == 11:
-                url = row['url'] + '/review_all'
+            if index > 210:
+                url = row['url']
                 self.logger.info("Process {}  {} ：{}".format(index, row['name'], row['url']))
                 print("Process {}  {} ：{}".format(index, row['name'], row['url']))
-                yield scrapy.Request(url=url, callback=self.page_parse, meta={'scenery_name': row['name'], 'index': index})
+                yield scrapy.Request(url=url, callback=self.review_all_parse, meta={'scenery_name': row['name'], 'index': index})
+
+    def review_all_parse(self, response):
+        """ 加一层，从景点主页跳到评论页面，直接访问评论页面被ban的概率大 """
+        url = response.url + '/review_all'
+        yield scrapy.Request(url=url, callback=self.page_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
 
     def page_parse(self, response):
-        if not self.is_verify(response):  # 检测是否需要验证
-            print('请输入验证码！ - ' + str(response.request.meta["redirect_urls"][0]))
-            yield response.request.replace(url=response.request.meta["redirect_urls"][0], dont_filter=True)  # 出现需要验证则再次提交
-            return
         """ 用户评论页码解析 """
         page_num = response.xpath('//div[@class="reviews-pages"]/a[last()-1]/text()').get()
         if page_num is None:
@@ -40,9 +36,9 @@ class DianpingSpider(scrapy.Spider):
         print("{}  {} Total page number is : {}".format(response.meta['index'], response.meta['scenery_name'], page_num))
         # for i in range(2, 3):  # 测试
         for i in range(1, int(page_num) + 1):
-            if i < 1264:
-                url = response.url + '/p' + str(i)
-                yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
+            # if response.meta['index'] != 186 or (response.meta['index'] == 186 and i < 3):
+            url = response.url + '/p' + str(i)
+            yield scrapy.Request(url=url, callback=self.review_parse, meta={'scenery_name': response.meta['scenery_name'], 'index': response.meta['index']})
 
     def review_parse(self, response):
         """ 用户评论信息采集 """
@@ -68,6 +64,7 @@ class DianpingSpider(scrapy.Spider):
             item['scenery_name'] = response.meta['scenery_name']
             item['source'] = '大众点评'
             item['url'] = response.url
-            item['home_url'] = li.xpath('.//div[@class="dper-info"]/a/@href').get()
+            home_url = li.xpath('.//div[@class="dper-info"]/a/@href').get()
+            item['home_url'] = home_url.split('/')[-1]
 
             yield item

@@ -11,10 +11,10 @@ headers = {
   'Accept-Encoding': 'gzip, deflate',
   'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
   'Connection': 'keep-alive',
-  'Cookie': '_lxsdk_cuid=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _lxsdk=1756254e31dc8-0dbb2f5b84c02a-31687304-1aeaa0-1756254e31dc8; _hc.v=a497ceb2-53d2-fcc1-b83f-acb8e5671083.1603672532; s_ViewType=10; ctu=5fecefa74ea59558a4d9dddd24fb293b8f9710fb8079edab2e1f02e28d5987bd; aburl=1; cityid=2; switchcityflashtoast=1; source=m_browser_test_33; seouser_ab=shop%3AA%3A1%7Cindex%3AA%3A1; fspop=test; cy=2; cye=beijing; _dp.ac.v=74219ac2-4dbb-477e-9231-0fd74de26434; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1603884877,1603885103,1604467986,1604477568; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; ll=7fd06e815b796be3df069dec7836c3df; ua=13001230577; lgtoken=051de7135-604b-4873-93b4-f9a6e11f3fcf; dper=de0737b36330e4ebe65a08979b56c834b9602c8862530f8446719d728944e7dd9f07ae085b3660fa7c130ceed6577343874ada06506c4c7496c61a3fbfa5c9e9c18fc58faf3cd79e22001e0ac24cdd5aadef08b3ed2310b6446c72833203b9d2; dplet=e90e69973778b14eeb4bb744283f8d93; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604539763; _lxsdk_s=17596045176-5e4-9a1-ad8%7C%7C82',
+  'Cookie': '_lxsdk_s=1759b24649e-299-995-87e%7C%7C269; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604625704; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604561137,1604580363,1604580902,1604625655; s_ViewType=10; cy=2; cye=beijing; dper=c2f02f2236015a9f5620477a7890ac957da2d6c1c4c2ee4e1aa9a9a9e8ef490005e0d4774c886390a5d72bf0ce40e4a0b068e6e0bead74cfc164b77e8810c703c667b87ca092a6546eab82894e7a96081570baa4f0c7e8112a557ed2e10b575c; dplet=6690e4016d894a09f3d8a207a0b271cc; ll=7fd06e815b796be3df069dec7836c3df; ua=13011243036; lgtoken=0546bb21d-04ff-448a-af1c-704af3f77394; ctu=5fecefa74ea59558a4d9dddd24fb293b1f8251125479ba4c6db981d29ea294df; _hc.v=b765b5d5-62d1-48c6-ab3d-6bad484d4ddc.1604580457; _lxsdk=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; _lxsdk_cuid=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; fspop=test',
   'Host': 'www.dianping.com',
   'Upgrade-Insecure-Requests': '1',
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15',
 }
 
 """ 获取css """

@@ -1,9 +1,47 @@
 from fake_useragent import UserAgent
 import time
 import hashlib
+import scrapy
 import pymysql
 import requests
 import json
+import yagmail
+
+
+class ErrorMiddleware(object):
+    """
+    发生错误处理中间件
+    """
+    @staticmethod
+    def is_verify(response):
+        """ 判断是否弹出验证 """
+        return False if response.url.find("verify.meituan.com") >= 0 else True
+
+    @staticmethod
+    def send_mail(content):
+        mail = yagmail.SMTP(user="caijidianping@163.com",
+                            password="caiji123456",
+                            host="smtp.163.com")
+        mail.send("406857586@qq.com", "Spider Error！", content)
+
+    def process_response(self, request, response, spider):
+        if not self.is_verify(response):  # 检测是否需要验证
+            print('请输入验证码！ - ' + str(request.url))
+            self.send_mail("出现验证码，关闭爬虫")
+            # return scrapy.Request(url=request.url, dont_filter=True)
+            spider.crawler.engine.close_spider(spider, "出现验证码，关闭爬虫")
+
+        if response.status in [403]:  # 检测是否403
+            print('403！ - ' + str(request.url))
+            self.send_mail("403 - Cookie失效，关闭爬虫")
+            # return scrapy.Request(url=request.url, dont_filter=True)
+            spider.crawler.engine.close_spider(spider, "403 - User-Agent失效，关闭爬虫")
+
+        return response
+
+    def process_exception(self, request, exception, spider):
+        if isinstance(exception, TimeoutError):
+            return request
 
 
 class RandomUserAgentMiddleware(object):
@@ -34,10 +72,6 @@ class ProxyMiddleware(object):
         sign = md5_string.upper()
         auth = "sign=" + sign + "&" + "orderno=" + self.orderno + "&" + "timestamp=" + timestamp
         request.headers['Proxy-Authorization'] = auth
-
-    def process_exception(self, request, exception, spider):
-        if isinstance(exception, TimeoutError):
-            return request
 
     """
     策略二：API获取优质代理IP，用前判断是否可用，可用则用，不可用则删除，被封也删除，用完用API接着获取
