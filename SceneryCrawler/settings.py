@@ -26,8 +26,10 @@ CONCURRENT_REQUESTS = 1
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY = eval("%.1f" % (random.random() * 10 + 2))
-DOWNLOAD_DELAY = 3
-DOWNLOAD_TIMEOUT = 15
+DOWNLOAD_DELAY = 1
+DOWNLOAD_TIMEOUT = 10
+RETRY_ENABLED = True
+RETRY_TIMES = 5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -40,26 +42,30 @@ COOKIES_ENABLED = False  # 一个坑，使用settings文件中的cookie，需要
 
 # Override the default request headers:
 cookies = [
-    # 13011243036 ️
-    # 18811315629 ✔
+    # 13011243036 ️✔
+    # 18811315629
     # 13001230577
     # 16733957594  被冻结
     # 17184232696
-    # 13329352337 （有人使用）
-    # 16532373495 （有人使用）
-    # 16533834139
+    # 13329352337
+    # 16532373495
+    # 16533834139  × （密码被改）
     # 17172395742
+    # 17050820646
+    # 16228080923
+    # 16255724657
+    # 16733957245
 ]
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Encoding': 'gzip, deflate',
   'Accept-Language': 'zh-cn',
   'Connection': 'keep-alive',
-  'Cookie': '_lxsdk_s=1759b24649e-299-995-87e%7C%7C694; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604627040; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604580363,1604580902,1604625655,1604627013; s_ViewType=10; cy=2; cye=beijing; dper=5ea05e18c6d8c7095a715f9fd972a6861e02820f7daf406a452ce911e73e656eee11f1fa18868c42657aa1378ef9d26d892aa7006ed077ef84045aaa1721b6e71a42afc09c512f4065da380c9f7156b48dfcbc909ae7c32c477ce01514b18b9b; dplet=1dddcc7992ba9ebf3f72bc4a23b78dd9; ll=7fd06e815b796be3df069dec7836c3df; ua=18811315629; lgtoken=066af0fc7-736a-423d-b54e-5b9d95c19b7d; ctu=5fecefa74ea59558a4d9dddd24fb293b1f8251125479ba4c6db981d29ea294df; _hc.v=b765b5d5-62d1-48c6-ab3d-6bad484d4ddc.1604580457; _lxsdk=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; _lxsdk_cuid=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; fspop=test',
+  'Cookie': '_lxsdk_s=175a5c65274-611-708-ca6%7C%7C669; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604804311; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604627013,1604656599,1604676610,1604804039; s_ViewType=10; cy=2; cye=beijing; dper=c2f02f2236015a9f5620477a7890ac9540ba7191df5e95f6ae5c334d1fa1b55e664c4ef4c183bda9ff99750dd49b1aed7f1204d49db8775a88cc3e06a35e109e895ca6667744a4eec0ce721ea9295513dfaf880afbe6a6c998ce46bc6667895a; dplet=1ee74016e26df597718978669183199a; ll=7fd06e815b796be3df069dec7836c3df; ua=13011243036; lgtoken=0ac18bd1d-745a-4632-91e5-426a5ca63db9; ctu=5fecefa74ea59558a4d9dddd24fb293b1f8251125479ba4c6db981d29ea294df; _hc.v=b765b5d5-62d1-48c6-ab3d-6bad484d4ddc.1604580457; _lxsdk=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; _lxsdk_cuid=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; fspop=test',
   # 'Cookie': random.choice(cookies),
   'Host': 'www.dianping.com',
   'Upgrade-Insecure-Requests': 1,
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15',
+  # 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36',
 }
 
 # Enable or disable spider middlewares
@@ -73,8 +79,8 @@ DEFAULT_REQUEST_HEADERS = {
 DOWNLOADER_MIDDLEWARES = {
    'SceneryCrawler.middlewares.ProxyMiddleware': 1,
    'SceneryCrawler.middlewares.ErrorMiddleware': 5,
-   # 'SceneryCrawler.middlewares.RandomUserAgentMiddleware': 543,
-   # 'scrapy.downloadmiddlewares.useragent.UserAgentMiddle': None
+   'SceneryCrawler.middlewares.RandomUserAgentMiddleware': 543,
+   'scrapy.downloadmiddlewares.useragent.UserAgentMiddle': None
 }
 
 # Enable or disable extensions

@@ -11,10 +11,10 @@ headers = {
   'Accept-Encoding': 'gzip, deflate',
   'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
   'Connection': 'keep-alive',
-  'Cookie': '_lxsdk_s=1759b24649e-299-995-87e%7C%7C269; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604625704; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604561137,1604580363,1604580902,1604625655; s_ViewType=10; cy=2; cye=beijing; dper=c2f02f2236015a9f5620477a7890ac957da2d6c1c4c2ee4e1aa9a9a9e8ef490005e0d4774c886390a5d72bf0ce40e4a0b068e6e0bead74cfc164b77e8810c703c667b87ca092a6546eab82894e7a96081570baa4f0c7e8112a557ed2e10b575c; dplet=6690e4016d894a09f3d8a207a0b271cc; ll=7fd06e815b796be3df069dec7836c3df; ua=13011243036; lgtoken=0546bb21d-04ff-448a-af1c-704af3f77394; ctu=5fecefa74ea59558a4d9dddd24fb293b1f8251125479ba4c6db981d29ea294df; _hc.v=b765b5d5-62d1-48c6-ab3d-6bad484d4ddc.1604580457; _lxsdk=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; _lxsdk_cuid=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; fspop=test',
+  'Cookie': '_lxsdk_s=175a5c65274-611-708-ca6%7C%7C669; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604804311; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604627013,1604656599,1604676610,1604804039; s_ViewType=10; cy=2; cye=beijing; dper=c2f02f2236015a9f5620477a7890ac9540ba7191df5e95f6ae5c334d1fa1b55e664c4ef4c183bda9ff99750dd49b1aed7f1204d49db8775a88cc3e06a35e109e895ca6667744a4eec0ce721ea9295513dfaf880afbe6a6c998ce46bc6667895a; dplet=1ee74016e26df597718978669183199a; ll=7fd06e815b796be3df069dec7836c3df; ua=13011243036; lgtoken=0ac18bd1d-745a-4632-91e5-426a5ca63db9; ctu=5fecefa74ea59558a4d9dddd24fb293b1f8251125479ba4c6db981d29ea294df; _hc.v=b765b5d5-62d1-48c6-ab3d-6bad484d4ddc.1604580457; _lxsdk=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; _lxsdk_cuid=175878298eac8-0b822b24e358fa8-3e62694b-1aeaa0-175878298eac8; fspop=test',
   'Host': 'www.dianping.com',
   'Upgrade-Insecure-Requests': '1',
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15',
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:82.0) Gecko/20100101 Firefox/82.0',
 }
 
 """ 获取css """
